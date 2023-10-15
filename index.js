@@ -1,22 +1,21 @@
+
 const { ApolloServer } = require('apollo-server');
+const { PubSub } = require('graphql-subscriptions');
 const mongooose = require('mongoose');
 
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
-
-const post = require('./models/Post')
 const { MONGODB } = require('./config.js');
 
-
+const pubsub = new PubSub();
 
 const PORT = process.env.port || 5000;
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({req}) =>({req})
+    context: ({ req }) => ({ req, pubsub })
 });
-
 
 
 mongooose.connect(MONGODB, { useNewUrlParser: true })

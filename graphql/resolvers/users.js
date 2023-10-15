@@ -17,7 +17,7 @@ const {
         username: user.username
       },
       SECRET_KEY,
-      { expiresIn: '1h' }
+    //   { expiresIn: '1h' }
     );
   }  
 
