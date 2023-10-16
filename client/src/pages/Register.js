@@ -23,19 +23,20 @@ function Register(props) {
   
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
-        // update(
-        //     _,
-        //     {
-        //         data: { register: userData }
-        //     }
-        // ) {
-        //     context.login(userData);
-        //     rops.history.push('/');p
-        // },
-        update(_ , result){
-            console.log(result);
+        update(
+            _,
+            {
+                data: { register: userData }
+            }
+        ) {
+            context.login(userData);
+           console.log(userData);
             navigate('/');
         },
+        // update(_ , result){
+        //     console.log(result);
+        //     navigate('/');
+        // },
         onError(err) {
             // setErrors(err.graphQLErrors[0].extensions.errors);
             setErrors(err&&err.graphQLErrors[0]?err.graphQLErrors[0].extensions.errors:{});

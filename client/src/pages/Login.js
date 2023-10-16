@@ -18,19 +18,17 @@ function Login(props) {
     });
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-        // update(
-        //     _,
-        //     {
-        //         data: { login: userData }
-        //     }
-        // ) {
-        //     context.login(userData);
-        //     props.history.push('/');
-        // },
-        update(_ , result){
-            console.log(result);
+        update(
+            _,
+            {
+                data: { login: userData }
+            }
+        ) {
+            context.login(userData);
+            console.log(userData);
             navigate('/');
         },
+     
         onError(err) {
             // setErrors(err.graphQLErrors[0].extensions.errors);
             setErrors(err && err.graphQLErrors[0] ? err.graphQLErrors[0].extensions.errors : {});

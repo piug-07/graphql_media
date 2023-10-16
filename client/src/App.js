@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Outlet , Navigate } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 
@@ -17,6 +17,8 @@ import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
 
 function App() {
+  const isAuthenticated = localStorage.getItem('jwtToken'); 
+
   return (
     <AuthProvider>
     <BrowserRouter>
@@ -33,9 +35,13 @@ function App() {
             )}
           >
             <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/posts/:postId" element={<SinglePost />} />
+            <Route  exact path="/login" element={<Login />} />
+            <Route  exact path="/register" element={<Register />} />
+            {isAuthenticated ? (
+            <Route exact path="/posts/:postId" element={<SinglePost />} />
+            ) : (
+              <Navigate to="/login" replace />
+            )}
           </Route>
         </Routes>
       </Container>
