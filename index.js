@@ -3,12 +3,12 @@ const { ApolloServer } = require('apollo-server');
 const { PubSub } = require('graphql-subscriptions');
 const mongooose = require('mongoose');
 const cors =  require('cors');
+const path = require('path');
 
 
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
 const { MONGODB } = require('./config.js');
-const path = require('path');
 const pubsub = new PubSub();
 
 
@@ -39,8 +39,8 @@ mongooose.connect(MONGODB, { useNewUrlParser: true })
     // const __dirname = path.resolve();
 
 
-    app.use(express.static(path.join(__dirname, '/client/dist')));
+    app.use(express.static(path.join(__dirname, 'build')));
 
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-    })
+    app.get('/*', function (req, res) {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
