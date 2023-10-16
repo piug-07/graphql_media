@@ -26,7 +26,18 @@ const server = new ApolloServer({
 });
 
 
-mongooose.connect(MONGODB, { useNewUrlParser: true })
+
+    // const __dirname = path.resolve();
+
+
+    app.use(express.static(path.join(__dirname, 'build')));
+
+    app.get('/*', function (req, res) {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+
+
+    mongooose.connect(MONGODB, { useNewUrlParser: true })
     .then(() => {
         console.log('MongoDB connected')
         return server.listen({ port: PORT })
@@ -36,11 +47,3 @@ mongooose.connect(MONGODB, { useNewUrlParser: true })
     .catch(err => {
         console.error(err)
     })
-    // const __dirname = path.resolve();
-
-
-    app.use(express.static(path.join(__dirname, 'build')));
-
-    app.get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    });
