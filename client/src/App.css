@@ -14,3 +14,17 @@
 .ui.teal.buttons .button:focus {
   background-color: #00b5ad;
 }
+
+.homebtn{
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 3rem;
+  border: 2px solid teal;
+  padding: .7rem;
+  background-color: white;
+  color: teal;
+  font-weight: 600;
+  cursor: pointer;
+
+
+}
