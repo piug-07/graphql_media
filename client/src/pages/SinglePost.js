@@ -18,12 +18,15 @@ import { AuthContext } from '../context/auth';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import MyPopup from '../util/MyPopup';
+import { useNavigate } from 'react-router-dom';
+
 
 function SinglePost(props) {
     const { postId } = useParams();
     // const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   const commentInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const [comment, setComment] = useState('');
 
@@ -48,7 +51,8 @@ function SinglePost(props) {
   });
 
   function deletePostCallback() {
-    props.history.push('/');
+    navigate('/');
+    window.location.reload();
   }
 
   let postMarkup;
