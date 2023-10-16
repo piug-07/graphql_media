@@ -1,9 +1,7 @@
-const express = require('express');
 const { ApolloServer } = require('apollo-server');
 const { PubSub } = require('graphql-subscriptions');
 const mongooose = require('mongoose');
-const cors =  require('cors');
-const path = require('path');
+
 
 
 const typeDefs = require('./graphql/typeDefs');
@@ -11,10 +9,6 @@ const resolvers = require('./graphql/resolvers');
 const { MONGODB } = require('./config.js');
 const pubsub = new PubSub();
 
-
-
-const app = express();
-app.use(cors())
 
 
 const PORT = process.env.port || 5000;
@@ -25,17 +19,6 @@ const server = new ApolloServer({
     context: ({ req }) => ({ req, pubsub }),
     persistedQueries: { cache: 'bounded' },
 });
-
-
-
-    // const __dirname = path.resolve();
-
-
-    app.use(express.static(path.join(__dirname, 'build')));
-
-    app.get('/*', function (req, res) {
-      res.sendFile(path.join(path.resolve(), 'build', 'index.html'));
-    });
 
 
     mongooose.connect(MONGODB, { useNewUrlParser: true })
